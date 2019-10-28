@@ -23,8 +23,10 @@ For **Ubuntu 18.04 LTS**, run the following commands to install the required pac
 
 ```
 $ sudo apt update && sudo apt upgrade -y
-$ sudo apt install asciidoc bash bc binutils bzip2 fastjar flex gawk gcc genisoimage \ gettext git intltool jikespg libgtk2.0-dev libncurses5-dev libssl1.0-dev make \
-mercurial patch perl-modules python2.7-dev rsync ruby sdcc subversion unzip util-linux \ wget xsltproc zlib1g-dev zlib1g-dev -y
+$ sudo apt install asciidoc bash bc binutils bzip2 fastjar flex gawk gcc genisoimage \ 
+gettext git intltool jikespg libgtk2.0-dev libncurses5-dev libssl1.0-dev make \
+mercurial patch perl-modules python2.7-dev rsync ruby sdcc subversion unzip util-linux \ 
+wget xsltproc zlib1g-dev zlib1g-dev -y
 ```
 
 # Downloads
