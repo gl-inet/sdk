@@ -3,6 +3,7 @@
 OpenWRT SDK for GL.iNet devices. The OpenWRT SDK is a pre-compiled environment suitable for creating custom packages without having to compile the entire OpenWRT build environment. 
 
   ![:!:](https://openwrt.org/lib/images/smileys/icon_exclaim.gif) Do everything as normal user, don't use root user or sudo!
+
   ![:!:](https://openwrt.org/lib/images/smileys/icon_exclaim.gif) Do not build in a directory that has spaces in its full path 
 
 ## System requirements
@@ -29,7 +30,7 @@ mercurial patch perl-modules python2.7-dev rsync ruby sdcc subversion unzip util
 # Downloads
 
 ```
-$ git clone https://gitlab.com/gl-luoyejiang/sdk.git
+$ git clone https://github.com/gl-inet/sdk.git
 ```
 
 The SDK requires a "case sensitive" system, Windows is unfortunately not. To run the SDK in WSL you **MUST** clone the repo to the linux folder tree, ie: `/home/<username>/` or any other folder you choose. This is required, you **CAN NOT** run it from `/mnt/c/` or any other windows native drive mounted in WSL. Running the SDK from a Windows mounted disk will result in a failed build with cryptic messages. 
