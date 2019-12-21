@@ -53,7 +53,7 @@ All available target list:
 
 # Compiling
 
-## Compiling a package
+## Official compilation method
 
 Place your package in `sdk/<version>/<target>/package/`, then run:
 
@@ -120,17 +120,19 @@ And read about the OpenWRT package structure here:
 
 https://openwrt.org/docs/guide-developer/packages
 
-## Compiling all package
+## GL.iNet Util compilation method
 
-We provide a script to compile all software packages with all targets SDK or compile all software packages with a single target SDK.
+We provide a script to compile all software packages with all targets SDK or compile all software packages with a single target SDK. You are freely and quickly compile packages for each platform.
 
 ```
 $ ./builder.sh 
 Usage: 
-./builder.sh [packages_path] [commnad]
+./builder.sh [option]
 command:
-    [-a]            # Compile all software packages with all targets SDK.
-    [-t] [target]   # Compile all software packages with a single target SDK.
+    [-a]                # Compile all software packages with all targets.
+    [-t] [target]       # Compile packages with single targets.
+    [-d] [package_path] # Package path.
+    [-v]                # Enable compile log.
 
 All available target list:
     ar71xx-1806     # usb150/ar150/ar300m16/mifi/ar750/ar750s/x1200
@@ -139,13 +141,17 @@ All available target list:
     mvebu-1907      # mv1000
 ```
 
-You can put all your packages to a folder, then run:
+You can put all your packages to a folder, then run the following command to compile packages for the specified platform,
 
 ```
-$ ./builder.sh [packages_path] -t [target]
+$ ./builder.sh -d [packages_path] -t [target]
 ```
 
-It will auto compile all your packages.
+Or run the following command to compile packages for all platform,
+
+```
+$ ./builder.sh -d [packages_path] -a
+```
 
 # Installing
 

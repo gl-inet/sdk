@@ -1,27 +1,22 @@
 # !/usr/bin/env bash
 
-# For GL.iNET internal use only.
-
 set -e
 
 work_dir="$PWD"
 sdk_dir="sdk"
-ipk_dir=""
 targets="ar71xx-1806 ramips-1806 ipq806x-qsdk53 mvebu-1907"
-dl_dir="/data/dl"
+dl_dir="/data/dl" 
 build_log="build_log.txt"
-
-packages_dir=$1
-cmd=$2
-target=$3
 
 usage() {
 	cat <<-EOF
 Usage: 
-./builder.sh [packages_path] [commnad]
+./builder.sh [option]
 command:
-    [-a]            # Compile all software packages with all targets
-    [-t] [target]   # Compile all software packages with single targets
+    [-a]                # Compile all software packages with all targets.
+    [-t] [target]       # Compile packages with single targets.
+    [-d] [package_path] # Package path.
+    [-v]                # Enable compile log.
 
 All available target list:
     ar71xx-1806     # usb150/ar150/ar300m16/mifi/ar750/ar750s/x1200
@@ -33,17 +28,34 @@ EOF
 	exit 0
 }
 
-compile_all_target() {
+check_target_valid() {
 
-    [ -z "$1" ] && usage
+    for target in $targets; do
+        [ "$target" = "$COMPILE_TARGET" ] && return 1
+    done
+
+    return 0
+}
+
+check_package_valid() {
+    local pkg_name
+
+    [ ! -f "$1/Makefile" ] && return 0
+
+    pkg_name=$(cat $1/Makefile|grep PKG_NAME)
+    [ -n "$pkg_name" ] && return 1
+    return 0
+}
+
+compile_all_target() {
 
     time=$(date '+%Y-%m-%d %T')
 
-    local packages_dir=$(cd $1; pwd; cd ..)
+    local packages_dir=$(cd $COMPILE_DIR; pwd; cd ..)
     [ "${packages_dir: -1}" = "/" ] && packages_dir=${packages_dir%/*} # 如果var变量最后一个字符是/，需先去掉
 
     local packages_name="${packages_dir##*/}"
-
+    local sdk_exist=0
     for target in $targets; do
         version="${target#*-}"
         target="${target%-*}"
@@ -52,45 +64,89 @@ compile_all_target() {
             echo "$time===========>> Compile '$sdk_dir/$version/$target' packages START <<===========" >> $build_log
             [ ! -e "$sdk_dir/$version/$target/package/$packages_name" ] && ln -sf $packages_dir $sdk_dir/$version/$target/package/$packages_name
             pushd $sdk_dir/$version/$target > /dev/null
-            make V=s
+            make $MAKE_PARAMETER
             popd > /dev/null
             echo "$time===========>> Compile '$sdk_dir/$version/$target' packages END <<===========" >> $build_log
+            sdk_exist=1
         }
     done
+    [ $sdk_exist = 0 ] && {
+        printf "\nError: SDK not found. You need to download SDK first through download.sh script.\n\n"
+    }
     exit 0
 }
 
 compile_single_target() {
 
-    [ -z "$1" ] && usage
-
     time=$(date '+%Y-%m-%d %T')
 
-    local packages_dir=$(cd $1; pwd; cd ..)
+    local packages_dir=$(cd $COMPILE_DIR; pwd; cd ..)
     [ "${packages_dir: -1}" = "/" ] && packages_dir=${packages_dir%/*} # 如果var变量最后一个字符是/，需先去掉
 
     local packages_name="${packages_dir##*/}"
-    version="${target#*-}"
-    target="${target%-*}"
+    local sdk_exist=0
+
+    version="${COMPILE_TARGET#*-}"
+    target="${COMPILE_TARGET%-*}"
     [ -d "$sdk_dir/$version/$target" ] && {
         echo "$time===========>> Compile '$sdk_dir/$version/$target' packages START <<===========" >> $build_log
         [ ! -e "$sdk_dir/$version/$target/package/$packages_name" ] && ln -sf $packages_dir $sdk_dir/$version/$target/package/$packages_name
         pushd $sdk_dir/$version/$target > /dev/null
-        make V=s
+        if [ $(check_package_valid "package/$packages_name"; echo $?) = 1 ]; then
+            make package/$packages_name/{clean,compile} $MAKE_PARAMETER
+        else
+            make $MAKE_PARAMETER
+        fi
         popd > /dev/null
         echo "$time===========>> Compile '$sdk_dir/$version/$target' packages END <<===========" >> $build_log
+        sdk_exist=1
+    }
+    [ $sdk_exist = 0 ] && {
+        printf "\nError: SDK not found. You need to download SDK first through download.sh script.\n\n"
     }
     exit 0
 }
 
-[ -z "$cmd" ] && usage
+export COMFILE_ALL=0
+export COMPILE_TARGET=""
+export COMPILE_DIR=""
+export COMPILE_VERBOSE=0
+export MAKE_PARAMETER=""
+
+while getopts "t:p:d:av" arg; do #字符后边有':'则表示有参数
+	case "$arg" in
+		a) export COMFILE_ALL=1;;
+		t) export COMPILE_TARGET=$OPTARG;;
+        d) export COMPILE_DIR=$OPTARG;;
+        v) export COMPILE_VERBOSE=1;;
+        \?) usage;;
+	esac
+done
+
+[ $COMPILE_VERBOSE = 1 ] && export MAKE_PARAMETER="V=s"
+
 [ -f "$build_log" ] && rm $build_log
-[ ! -d "$packages_dir" ] && echo "error: Can not found '$packages_dir' directory. Please check again." && usage
-[ "$cmd" = "-a" ] && compile_all_target $packages_dir
-[ "$cmd" = "-t" ] && {
-    [ -z "$target" ] && echo "error: Can not found '$target' target. Please check again." && usage
-    compile_single_target $packages_dir
+[ -z "$1" ] && usage
+[ -z "$COMPILE_DIR" ] && {
+    printf "\nError: Please use '-d' parameter to set COMPILE_DIR.\n\n"
+    usage
 }
 
-usage
+[ $COMFILE_ALL = 1 ] && compile_all_target
+
+[ -z "$COMPILE_TARGET" ] && {
+    printf "\nError: Please use '-t' parameter to set COMPILE_TARGET.\n\n"
+    usage
+}
+
+[ $(check_target_valid; echo $?) = 0 ] && {
+    printf "\nError: Target doesn't exist. Please select target from available target list.\n\n"
+    usage
+}
+
+[ $COMFILE_ALL = 0 ] && compile_single_target
+
+
+
+
 
