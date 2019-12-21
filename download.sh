@@ -43,7 +43,7 @@ download_sdk() {
                ./scripts/feeds install uci curl libubus libubox libiwinfo libsqlite3 mqtt fcgi #install default depends packages
                make defconfig
                popd > /dev/null
-               printf "\nUse './builder.sh [packages_path] [commnad]' to compile all your packages.\nRun './builder.sh' to get more help.\n\n"
+               printf "\nUse 'builder.sh script to compile all your packages.\nRun './builder.sh' to get more help.\n\n"
             }
         else
             pushd $sdk_dir/$version/$target > /dev/null
