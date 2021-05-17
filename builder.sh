@@ -4,7 +4,7 @@ set -e
 
 work_dir="$PWD"
 sdk_dir="sdk"
-targets="ar71xx-1806 ramips-1806 ramips-1907 ipq806x-qsdk53 mvebu-1907"
+targets="ar71xx-1806 ath79-1907 ramips-1806 ramips-1907 ipq806x-qsdk53 mvebu-1907"
 dl_dir="/data/dl" 
 build_log="build_log.txt"
 
@@ -19,7 +19,8 @@ command:
     [-v]                # Enable compile log.
 
 All available target list:
-    ar71xx-1806     # usb150/ar150/ar300m16/mifi/ar750/ar750s/x1200
+    ar71xx-1806     # usb150/ar150/ar300m16/mifi/ar750/ar750s/x750/x1200
+    ath79-1907      # usb150/ar150/ar300m/mifi/ar750/ar750s/x750/x300b/xe300/e750/x1200 openwrt-19.07.7 ath79 target
     ramips-1806     # mt300n-v2/mt300a/mt300n/n300/vixmini
     ramips-1907     # mt1300
     ipq806x-qsdk53  # b1300/s1300
