@@ -16,7 +16,7 @@ All available target list:
     ar71xx-1806     # usb150/ar150/ar300m16/mifi/ar750/ar750s/x750/x1200
     ath79-1907     # usb150/ar150/ar300m/mifi/ar750/ar750s/x750/x300b/xe300/e750/x1200 openwrt-19.07.7 ath79 target
     ramips-1806     # mt300n-v2/mt300a/mt300n/n300/vixmini
-    ramips-1907     # mt1300
+    ramips-1907     # mt1300 mt300n-v2/mt300a/mt300n/n300/vixmini
     ipq806x-qsdk53  # b1300/s1300
     mvebu-1907      # mv1000
 
