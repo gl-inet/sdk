@@ -3,7 +3,7 @@
 
 work_dir="$PWD"
 sdk_dir="sdk"
-targets="ar71xx-1806 ath79-1907 ramips-1806 ramips-1907 ipq806x-qsdk53 ipq_ipq40xx-qsdk11 mvebu-1907"
+targets="ar71xx-1806 ath79-1907 ramips-1806 ramips-1907 ipq806x-qsdk53 ipq_ipq40xx-qsdk11 mvebu-1907 siflower-1806"
 
 gl_inet_imagebuilder_url="https://github.com/gl-inet-builder"
 
@@ -20,6 +20,7 @@ All available target list:
     ipq806x-qsdk53      # b1300/s1300/ap1300/b2200
     ipq_ipq40xx-qsdk11  # b1300/s1300/ap1300/b2200 (version 3.201 and above)
     mvebu-1907          # mv1000
+    siflower-1806       # sf1200
 
 EOF
 	exit 0
