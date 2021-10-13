@@ -4,7 +4,7 @@ set -e
 
 work_dir="$PWD"
 sdk_dir="sdk"
-targets="ar71xx-1806 ath79-1907 ramips-1806 ramips-1907 ipq806x-qsdk53 ipq_ipq40xx-qsdk11 mvebu-1907 siflower-1806"
+targets="ar71xx-1806 ath79-1907 ramips-1806 ramips-1907 ipq806x-qsdk53 ipq_ipq40xx-qsdk11 ipq_ipq60xx-qsdk11 mvebu-1907 siflower-1806"
 dl_dir="/data/dl" 
 build_log="build_log.txt"
 
@@ -25,6 +25,7 @@ All available target list:
     ramips-1907         # mt1300 mt300n-v2/mt300a/mt300n/n300/vixmini
     ipq806x-qsdk53      # b1300/s1300/ap1300/b2200
     ipq_ipq40xx-qsdk11  # b1300/s1300/ap1300/b2200 (version 3.201 and above)
+    ipq_ipq60xx-qsdk11  # ax1800
     mvebu-1907          # mv1000
     siflower-1806       # sf1200
 
