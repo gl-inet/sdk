@@ -44,7 +44,7 @@ download_sdk() {
             git clone $gl_inet_imagebuilder_url/openwrt-sdk-$sdk_name.git $sdk_dir/$version/$target
             [ "$target" != "ipq806x" ] && {
                pushd $sdk_dir/$version/$target > /dev/null
-               ./scripts/feeds update -f
+               ./scripts/feeds update
                ./scripts/feeds install uci curl libubus libubox libiwinfo libsqlite3 mqtt fcgi #install default depends packages
                make defconfig
                popd > /dev/null
