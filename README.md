@@ -50,6 +50,7 @@ All available target list:
     ramips-1907     # mt1300 mt300n-v2/mt300a/mt300n/n300/vixmini
     ipq806x-qsdk53  # b1300/s1300
     mvebu-1907      # mv1000
+    siflower-1806   # sf1200/sft1200
 ```
 
 # Compiling
@@ -142,6 +143,7 @@ All available target list:
     ramips-1907     # mt1300 mt300n-v2/mt300a/mt300n/n300/vixmini
     ipq806x-qsdk53  # b1300/s1300
     mvebu-1907      # mv1000
+    siflower-1806   # sf1200/sft1200
 ```
 
 You can put all your packages to a folder, then run the following command to compile packages for the specified platform,
