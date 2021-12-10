@@ -49,6 +49,8 @@ All available target list:
     ramips-1806     # mt300n-v2/mt300a/mt300n/n300/vixmini
     ramips-1907     # mt1300 mt300n-v2/mt300a/mt300n/n300/vixmini
     ipq806x-qsdk53  # b1300/s1300
+    ipq_ipq40xx-qsdk11  # b1300/s1300/ap1300/b2200 (version 3.201 and above)
+    ipq_ipq60xx-qsdk11  # ax1800
     mvebu-1907      # mv1000
     siflower-1806   # sf1200/sft1200
 ```
