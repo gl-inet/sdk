@@ -53,6 +53,7 @@ All available target list:
     ipq_ipq60xx-qsdk11  # ax1800
     mvebu-1907      # mv1000
     siflower-1806   # sf1200/sft1200
+    ipq807x-2102   # ax1800/axt1800 (version 4.x and above)
 ```
 
 # Compiling
