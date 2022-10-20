@@ -147,6 +147,7 @@ All available target list:
     ipq806x-qsdk53  # b1300/s1300
     mvebu-1907      # mv1000
     siflower-1806   # sf1200/sft1200
+    ipq807x-2102   # ax1800/axt1800 (version 4.x and above)
 ```
 
 You can put all your packages to a folder, then run the following command to compile packages for the specified platform,
